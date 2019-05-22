@@ -1,2 +1,2 @@
-web: gunicorn franco_digital_arts.wsgi --log-file -
+web: gunicorn slack_api_test.wsgi --log-file -
 

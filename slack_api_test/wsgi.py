@@ -12,7 +12,7 @@ import os
 from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "franco_digital_arts.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "slack_api_test.settings")
 
 application = get_wsgi_application()
 application = DjangoWhiteNoise(application)
