@@ -1,8 +1,11 @@
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import requests, json
 # Create your views here.
+from django.utils.decorators import method_decorator
 from django.views import generic
+from django.views.decorators.csrf import csrf_exempt
 
 from slack_api_test import settings
 
@@ -24,6 +27,13 @@ class SendMessageAPI(generic.View):
         else:
             messages.error(request, "Please try agin")
         return redirect('/')
+
+@method_decorator(csrf_exempt, name='dispatch')
+class WebHooksView(generic.View):
+
+    def post(self, request, *args, **kwargs):
+        return HttpResponse(request.POST.get('challenge'))
+
 
 class ReadMessageAPI(generic.TemplateView):
     template_name = 'home_1.html'
