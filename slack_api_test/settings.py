@@ -118,7 +118,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+# Static and media files
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'staticfiles'),
+)
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # For local environment
 
 
 SLACK_API_TOKEN = "xoxp-642574269621-644436553927-642635455136-6062a5438595576fb24258e0791a37f9"
+
+SITE_ID = 1
