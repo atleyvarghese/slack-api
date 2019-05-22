@@ -32,7 +32,7 @@ class SendMessageAPI(generic.View):
 class WebHooksView(generic.View):
 
     def post(self, request, *args, **kwargs):
-        return JsonResponse(data={"challenge":request.POST.get('challenge')})
+        return JsonResponse(data={"challenge":json.loads(request.body.decode('utf8').replace("'", '"'))["challenge"]})
 
 
 class ReadMessageAPI(generic.TemplateView):

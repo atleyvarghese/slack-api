@@ -25,7 +25,7 @@ SECRET_KEY = 'u(tev7e6-=e8m%le7)rcl%*-4-wyqc*sc0h%d!2c*ebs!j($b7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['slack-api-atley.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['slack-api-atley.herokuapp.com', 'localhost', 'atley.localhost.run']
 
 
 # Application definition
