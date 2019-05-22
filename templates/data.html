@@ -1,0 +1,7 @@
+{% if data %}
+    {% for chat in data %}
+        {{ chat.user }} : {{chat.text}}<br>
+    {% endfor %}
+{%else%}
+    <p>No data found</p>
+{%endif%}
