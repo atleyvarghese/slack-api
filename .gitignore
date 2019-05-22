@@ -44,7 +44,6 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # DB
-*.sqlite3
 .DS_Store
 tags
 
