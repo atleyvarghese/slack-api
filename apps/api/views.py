@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 import requests, json
 # Create your views here.
@@ -32,7 +32,7 @@ class SendMessageAPI(generic.View):
 class WebHooksView(generic.View):
 
     def post(self, request, *args, **kwargs):
-        return HttpResponse(request.POST.get('challenge'))
+        return JsonResponse(data={"challenge":request.POST.get('challenge')})
 
 
 class ReadMessageAPI(generic.TemplateView):
