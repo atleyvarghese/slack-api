@@ -23,7 +23,7 @@
 <p>Please note that you should send a message first to initialize the API, Only then check fro channel history and replies.</p>
 <hr>
 <div class="container-fluid">
-    <form action="/send-msg/" method="post">
+    <form action="{% url 'slack:send-msg' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <label for="text">Message</label>

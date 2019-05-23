@@ -117,6 +117,6 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # For local environment
 
-SLACK_TOKEN = "xoxp-642574269621-644436553927-642635455136-6062a5438595576fb24258e0791a37f9"
+SLACK_TOKEN = os.getenv("SLACK_TOKEN")
 
 SITE_ID = 1

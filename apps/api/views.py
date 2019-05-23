@@ -24,7 +24,6 @@ class SendMessageAPIView(generic.View):
         if msg:
             response = requests.post("https://slack.com/api/chat.postMessage", headers=header,
                                      data={"channel": "#random", "text": msg, "as_user": True})
-
             request.session['msg_id'] = json.loads(response.content.decode('utf8').replace("'", '"'))["ts"]
             request.session['channel_id'] = json.loads(response.content.decode('utf8').replace("'", '"'))["channel"]
 
