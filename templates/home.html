@@ -19,6 +19,9 @@
     {% endfor %}
 </ul>
 {% endif %}
+<hr>
+<p>Please note that you should send a message first to initialize the API, Only then check fro channel history and replies.</p>
+<hr>
 <div class="container-fluid">
     <form action="/send-msg/" method="post">
         {% csrf_token %}
@@ -50,7 +53,7 @@
 $(document).ready(function() {
     $(document).on("click","#get-chat",function() {
         $.ajax({
-            url: "/get-msg/",
+            url: "{% url 'slack:get-msgs' %}",
             context: document.body
             }).done(function(response) {
         $('#chat_history').html(response);
@@ -60,7 +63,7 @@ $(document).ready(function() {
 
     $(document).on("click","#get-reply",function() {
         $.ajax({
-            url: "/reply-check/",
+            url: "{% url 'slack:replies' %}",
             context: document.body
             }).done(function(response) {
                 $('#response').html(response);

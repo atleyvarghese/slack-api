@@ -3,6 +3,7 @@ import requests
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
@@ -16,7 +17,8 @@ class HomeView(generic.TemplateView):
     template_name = 'home.html'
 
 
-class SendMessageAPI(generic.View):
+class SendMessageAPIView(generic.View):
+
     def post(self, request, *args, **kwargs):
         msg = request.POST.get('message')
         if msg:
@@ -26,19 +28,20 @@ class SendMessageAPI(generic.View):
             request.session['msg_id'] = json.loads(response.content.decode('utf8').replace("'", '"'))["ts"]
             request.session['channel_id'] = json.loads(response.content.decode('utf8').replace("'", '"'))["channel"]
 
-            messages.success(request, "Msg send")
+            messages.success(request, "Msg send successfully")
         else:
             messages.error(request, "Please try again later")
-        return redirect('/')
+        return redirect(reverse('slack:home'))
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class WebHooksView(generic.View):
+
     def post(self, request, *args, **kwargs):
         return JsonResponse(data={"challenge": json.loads(request.body.decode('utf8').replace("'", '"'))["challenge"]})
 
 
-class ReadMessageAPI(generic.TemplateView):
+class ReadMessageAPIView(generic.TemplateView):
     template_name = 'data.html'
 
     def get_context_data(self, **kwargs):
@@ -50,7 +53,7 @@ class ReadMessageAPI(generic.TemplateView):
         return context
 
 
-class ReplyCheckAPI(generic.TemplateView):
+class ReplyCheckAPIView(generic.TemplateView):
     template_name = 'data.html'
 
     def get_context_data(self, **kwargs):
@@ -59,5 +62,6 @@ class ReplyCheckAPI(generic.TemplateView):
             response = requests.post("https://slack.com/api/channels.replies", headers=header,
                                      data={"channel": self.request.session.get('channel_id'),
                                            "thread_ts": self.request.session['msg_id']})
-            context['data'] = json.loads(response.content.decode('utf8').replace("'", '"'))['messages']
+            if len(json.loads(response.content.decode('utf8').replace("'", '"'))['messages']) > 1:
+                context['data'] = json.loads(response.content.decode('utf8').replace("'", '"'))['messages']
         return context
