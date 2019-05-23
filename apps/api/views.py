@@ -28,7 +28,7 @@ class SendMessageAPI(generic.View):
 
             messages.success(request, "Msg send")
         else:
-            messages.error(request, "Please try agin")
+            messages.error(request, "Please try again later")
         return redirect('/')
 
 
